@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // $('#logoutExtendCnclBtn').on('click', function (){
+    //   console.log("clicked logout btn")
+    //
+    //   if(sessionStorage){	// 세션스토리지 초기화
+    //     sessionStorage.clear();
+    //   }
+    //   location.href = '${contextPath }/ua/ul/actionLogout.do';
+    // });
+    //
+    // function ntcnDetail(sndngInnb) {
+    //   console.log(sndngInnb);
+    //   $.ajax({
+    //     type: 'POST',
+    //     url: `${contextPath}/sse/notifications`,
+    //     data: {
+    //       sndngInnb: sndngInnb,
+    //     },
+    //     success: function (data) {
+    //       console.log(data.result.ntcnId)
+    //       console.log(data.result.sndngSj)
+    //       console.log(data.result.sndngCn)
+    //     }
+    //   })
+    // }
+
+    const eventSource = new EventSource(`/notifications/subscribe`);
+    eventSource.addEventListener("sse", function (event) {
+      console.log("last event id: " + event.lastEventId);
+      const data = JSON.parse(event.data);
+      console.log(data);
+    })
+    // $.ajax({
+    //   url: '${contextPath}/sse/notifications',
+    //   success: function (data) {
+    //     $('#count').text(data.result.unreadCount)
+    //     const list = data.result.ntcnList;
+    //   }
+    // })
+    //
+    // eventSource.addEventListener("sse", function (event) {
+    //   console.log(event.lastEventId);
+    //
+    //   const data = JSON.parse(event.data);
+    //   console.log(data);
+    //
+    //   const notifications = document.getElementById('notifications');
+    //   if (typeof data.ntcnId !== 'undefined') {
+    //     console.log(data.ntcnId);
+    //     console.log(data.sndngSj);
+    //     console.log(data.regDt);
+    //
+    //     const tr = document.createElement("tr");
+    //     const id = document.createElement("td");
+    //     const sj = document.createElement("td");
+    //     const regDt = document.createElement("td");
+    //     id.innerHTML = data.ntcnId;
+    //     sj.innerHTML = data.sndngSj;
+    //     sj.style.cursor = "pointer";
+    //     sj.addEventListener("click", function () {
+    //       ntcnDetail(data.sndngInnb);
+    //     })
+    //     regDt.innerHTML = data.regDt;
+    //     tr.appendChild(id);
+    //     tr.appendChild(sj);
+    //     tr.appendChild(regDt);
+    //     notifications.appendChild(tr);
+    //   }
+    // })
+
+  });
+
+</script>
+<body>
+Hello SSE
+</body>
+</html>
